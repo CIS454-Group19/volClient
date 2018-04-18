@@ -15,7 +15,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      employees: []
+      users: []
     }
     
     this.getPHP = this.getPHP.bind(this);
@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   getPHP() {
-    return fetch(`http://localhost:8080/api/v1/employees.php`, {
+    return fetch(`http://localhost:8080/volApi/v1/users.php`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -37,8 +37,8 @@ class App extends Component {
       // You parse the data into a useable format using `.json()`
       return response.json();
     }).then(data => {
-      this.setState({employees: data});
-      console.log('Employees', this.state.employees);
+      this.setState({users: data});
+      console.log('Users', this.state.users);
     });
   }
 
@@ -65,10 +65,10 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App; 
 
-// {this.state.employees.length > 0 ? 
-//   this.state.employees.map(employee => 
+// {this.state.users.length > 0 ? 
+//   this.state.users.map(user => 
 //     <div className='col-lg-6-'>
-//       {employee.id}
-//     </div>) : null}  
+//       {user.user_first}
+//     </div>) : null} 
