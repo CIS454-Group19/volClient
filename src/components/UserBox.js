@@ -12,7 +12,7 @@ class UserBox extends Component {
     this.state = {
       users: []
     }
-    
+
     this.getPHP = this.getPHP.bind(this);
   }
 
@@ -43,29 +43,44 @@ class UserBox extends Component {
     return (
       <div className="user-box">
         <div className="user-photo">
-          <img src={person}/>
+        <img src={person}/>
         </div>
         <div className="user-names">
           <div className="full-name">
             <Link to='/profile2'>
-            {this.state.users.length > 0 ? 
-  this.state.users.map(user => 
-    <div className='col-lg-6-'>
-      {user[].user_first}
-    </div>) : null} 
-              {/* <b>Jesus Vargas</b> */}
+            {this.state.users.length > 0 ?
+              this.state.users.map(user =>
+              <div className='col-lg-6-'>
+                {user.user_first}
+              </div>) : null}
             </Link>
           </div>
           <div className="userName">
-            @jesusv
+          {this.state.users.length > 0 ?
+            this.state.users.map(user =>
+              <div className='col-lg-6-'>
+                @{user.user_uid}
+              </div>) : null}
+
+
+
+
           </div>
         </div>
         <div className="user-stats">
-          <div className="useRating">
-            4/5<br/><b>Rating</b>
-          </div>
+          {this.state.users.length > 0 ?
+          this.state.users.map(user =>
+            <div className='useRating'>
+              <b>Rating</b>
+              <br />
+              {user.rating}
+            </div>) : null}
           <div className="userVisits">
-            10<br/><b>Visits</b>
+            <b>Visits</b>{this.state.users.length > 0 ?
+            this.state.users.map(user =>
+              <div className='col-lg-6-'>
+                {user.number_visits}
+              </div>) : null}
           </div>
         </div>
       </div>
