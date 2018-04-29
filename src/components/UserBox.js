@@ -6,6 +6,11 @@ import {
 } from 'react-router-dom';
 
 class UserBox extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+
   render() {
     return (
       <div className="user-box">
@@ -15,19 +20,22 @@ class UserBox extends Component {
         <div className="user-names">
           <div className="full-name">
             <Link to='/profile2'>
-              <b>Jesus Vargas</b>
+              <div>
+                {this.props.firstName} {this.props.lastName}
+              </div>
+              {/* <b>Jesus Vargas</b> */}
             </Link>
           </div>
           <div className="userName">
-            @jesusv
+            @{this.props.userName}
           </div>
         </div>
         <div className="user-stats">
           <div className="useRating">
-            4/5<br/><b>Rating</b>
+          {this.props.rating}/5<br/><b>Rating</b>
           </div>
           <div className="userVisits">
-            10<br/><b>Visits</b>
+          {this.props.visits}<br/><b>Visits</b>
           </div>
         </div>
       </div>
