@@ -46,7 +46,7 @@
 .user-box {
   height: 200px;
   width: 325px;
-  outline-style: solid;
+  /* outline-style: solid; */
   /* background-color: blue; */
   position: relative;
   top: 50px;
@@ -55,7 +55,7 @@
 .user-desc {
   height: 275px;
   width: 325px;
-  outline-style: solid;
+  /* outline-style: solid; */
   position: relative;
   top: 100px;
 }
@@ -73,7 +73,7 @@
   height: 50px;
   width: 175px;
   position: absolute;
-  outline-style: solid;
+  /* outline-style: solid; */
   top: 75px;
   left: 130px;
 }
@@ -136,14 +136,27 @@
   height: 190px;
   width: 285px;
   position: relative;
-  outline-style: solid;
+  /* outline-style: solid; */
   top: 40px;
   left: 20px;
+  word-wrap: break-word;
+  overflow:hidden;
 }
 
 .location-pos {
   text-align: left;
   padding-top: 5px;
+}
+
+
+/* Future Visits Table */
+
+.future-visits {
+  height: 300px;
+  width: 325px;
+  outline-style: solid;
+  position: relative;
+  top: 150px;
 }
 
 /* .table-container {
@@ -223,6 +236,7 @@
   width: 500px;
   outline-style: solid;
   position: relative;
+  overflow: scroll;
 }
 
 .vol-cell {
@@ -358,6 +372,49 @@
   margin-right: auto;
   position: relative;
   top: 75px;
+}
+
+/* Login Form */
+
+.login-container {
+  height: 275px;
+  width: 375px;
+  /* outline-style: solid; */
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 200px;
+}
+
+.email-box {
+  height: 50px;
+  width: 300px;
+  /* outline-style: solid; */
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 40px;
+}
+
+.password-box {
+  height: 50px;
+  width: 300px;
+  /* outline-style: solid; */
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 60px;
+}
+
+.buttons-box {
+  height: 35px;
+  width: 300px;
+  /* outline-style: solid; */
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  top: 75px;
+  text-align: center;
 }
 
 
