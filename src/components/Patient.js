@@ -12,16 +12,18 @@ class Patient extends Component {
 
     this.state = {
       user: [],
-      loggedIn: false,
     } 
   }
 
+  // Load user info from localStorage
 
   componentWillMount() {
     localStorage.getItem('User') && this.setState({
       user: JSON.parse(localStorage.getItem('User'))
     })
   }
+
+  // Check to see if a user was loaded, if not, reroute back to login page
 
   componentDidMount() {
     console.log('Loaded User', this.state.user)
@@ -30,6 +32,9 @@ class Patient extends Component {
     : null   
     }
   }
+
+  // Information from our current user is passed in to different components as PROPS 
+  // in order for the components to access the data
 
   render() {
     return (

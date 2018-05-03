@@ -15,6 +15,8 @@ class SignUp extends Component {
       username: '',
       location: '',
       bio: '',
+      phone: '',
+      role: '',
       show: false,
     }
 
@@ -24,9 +26,11 @@ class SignUp extends Component {
     this.lastNameChange = this.lastNameChange.bind(this);
     this.regEmailChange = this.regEmailChange.bind(this);
     this.regPasswordChange = this.regPasswordChange.bind(this);
+    this.phoneChange = this.phoneChange.bind(this);
     this.usernameChange = this.usernameChange.bind(this);
     this.locationChange = this.locationChange.bind(this);
     this.bioChange = this.bioChange.bind(this);
+    this.roleChange = this.roleChange.bind(this);
     this.signUp = this.signUp.bind(this);
   }
 
@@ -54,6 +58,11 @@ class SignUp extends Component {
       regPassword: e.target.value
     })
   }
+  phoneChange (e) {
+    this.setState({
+      phone: e.target.value
+    })
+  }
 
   usernameChange (e) {
     this.setState({
@@ -73,8 +82,59 @@ class SignUp extends Component {
     })
   }
 
+  roleChange (e) {
+    this.setState({
+      role: e.target.value
+    })
+  }
+
   signUp (e) {
-    let self = this;
+
+    if (this.state.firstName === "") {
+      alert("Please submit a first name");
+      return false;
+    }
+
+    if (this.state.lastName === "") {
+      alert("Please submit a last name");
+      return false;
+    }
+
+    if (this.state.regEmail === "") {
+      alert("Please submit an email");
+      return false;
+    }
+
+    if (this.state.regPassword === "") {
+      alert("Please submit a password");
+      return false;
+    }
+
+    if (this.state.phone === "") {
+      alert("Please submit a phone number");
+      return false;
+    }
+
+    if (this.state.username === "") {
+      alert("Please submit a username");
+      return false;
+    }
+
+    if (this.state.location === "") {
+      alert("Please submit a location");
+      return false;
+    }
+
+    if (this.state.bio === "") {
+      alert("Please submit a bio");
+      return false;
+    }
+
+    if (this.state.role === "") {
+      alert("Please submit a role");
+      return false;
+    }
+
     let regData = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -82,7 +142,11 @@ class SignUp extends Component {
       regPassword: this.state.regPassword,
       username: this.state.username,
       location: this.state.location,
-      bio: this.state.bio
+      bio: this.state.bio,
+      phone: this.state.phone,
+      role: this.state.role,
+      rating: 0,
+      visits: 0
     }
     console.log(regData);
     return fetch(`http://localhost:8080/api/v1/register.php`, {
@@ -92,24 +156,7 @@ class SignUp extends Component {
         'Content-Type': 'application/json',
       }
     })
-    // .then(function(response) {
-    //   // The response is a Response instance.
-    //   // You parse the data into a useable format using `.json()`
-    //   return response.json();
-    // }).then(data => {
-    //   console.log('User', data);
-    // });
-      // .done((user) => {
-      //   const redirectTo = '/patient';
-      //   Router.push({
-      //     pathname: redirectTo,
-      //     state: {
-      //       loggedIn: true,
-      //       user: user,
-      //     },
-      //   });
-      // })
-      // .fail((e) => alert('Your email or password has an issue'));
+    .then(this.setState({ show: false }));
   }
 
   handleShow() {
@@ -122,7 +169,7 @@ class SignUp extends Component {
 
   render() {
     return (
-      <div>
+      <div className="sign-up-form">
         <Button bsStyle="primary" onClick={this.handleShow}>Sign Up</Button>
         {this.state.show ? (
         <Modal.Dialog show={this.state.show} onHide={this.handleClose}>
@@ -147,7 +194,7 @@ class SignUp extends Component {
                   Email
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="email" placeholder="Email" onChange={this.regEmailChange}/>
+                  <FormControl type="text" placeholder="Email" onChange={this.regEmailChange}/>
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -156,6 +203,14 @@ class SignUp extends Component {
                 </Col>
                 <Col sm={10}>
                   <FormControl type="password" placeholder="Password" onChange={this.regPasswordChange}/>
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={2}>
+                  Phone
+                </Col>
+                <Col sm={10}>
+                  <FormControl type="text" placeholder="Phone Number" onChange={this.phoneChange}/>
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -181,6 +236,14 @@ class SignUp extends Component {
                 <Col sm={10}>
                   <FormControl componentClass="textarea" placeholder="Tell us about yourself and what you do." onChange={this.bioChange}/>
                 </Col>
+              </FormGroup>
+              <FormGroup controlId="formControlsSelect">
+                <ControlLabel>Select Role</ControlLabel>
+                <FormControl componentClass="select" placeholder="Role" onChange={this.roleChange}>
+                  <option value="">Roles</option>
+                  <option value="patient">Patient</option>
+                  <option value="doctor">Doctor</option>
+                </FormControl>
               </FormGroup>
             </Form>
           </Modal.Body>

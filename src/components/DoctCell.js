@@ -23,20 +23,17 @@ class DoctCell extends Component {
     this.appointRequest = this.appointRequest.bind(this);
     this.dateChange = this.dateChange.bind(this);
     this.detailsChange = this.detailsChange.bind(this);
-    // this.saveid = this.saveid.bind(this);
-
   }
+
+   // Load user info from localStorage
 
   componentWillMount() {
     localStorage.getItem('User') && this.setState({
       user: JSON.parse(localStorage.getItem('User'))
     })
-    console.log(this.state.user);
   }
 
-  componentDidMount() {
-    console.log('Updated User', this.state.user);
-  }
+  // Handle close and show determine whether the Modals are being displayed or not
 
   handleClose() {
     this.setState({ show: false });
@@ -47,9 +44,7 @@ class DoctCell extends Component {
     this.setState({
       docIndex: this.props.index,
     })
-    console.log('docId', this.state.docIndex);
   }
-
 
   handleChange(e) {
     this.setState({ value: e.target.value });
@@ -59,17 +54,28 @@ class DoctCell extends Component {
     this.setState({
       details: e.target.value
     })
-    console.log(this.state.details);
   }
 
   dateChange (e) {
     this.setState({
       date: e.target.value
     })
-    console.log(this.state.date);
   }
 
-  appointRequest (e) {
+  // Create new entry inside appointment table in our DB
+
+  appointRequest () {
+
+    if (this.state.details === "") {
+      alert("Detail section must be filled out.");
+      return false;
+    }
+
+    if (this.state.date === "") {
+      alert("A date must be selected.");
+      return false;
+    }
+
     this.setState({ doctorId: this.props.doctors[this.state.docIndex].user_id})
     let self = this;
     let appointmentData = {
@@ -86,24 +92,6 @@ class DoctCell extends Component {
         'Content-Type': 'application/json',
       }
     })
-    // .then(function(response) {
-    //   // The response is a Response instance.
-    //   // You parse the data into a useable format using `.json()`
-    //   return response.json();
-    // }).then(data => {
-    //   console.log('User', data);
-    // });
-      // .done((user) => {
-      //   const redirectTo = '/patient';
-      //   Router.push({
-      //     pathname: redirectTo,
-      //     state: {
-      //       loggedIn: true,
-      //       user: user,
-      //     },
-      //   });
-      // })
-      // .fail((e) => alert('Your email or password has an issue'));
   }
 
   render() {
@@ -115,7 +103,7 @@ class DoctCell extends Component {
         <div className="vol-section">
           <div className="vol-table-topRow">
             <div className="vol-table-name">
-              {this.props.firstName} {this.props.lastName}
+              <b>{this.props.firstName} {this.props.lastName}</b>
             </div>
             <div className="vol-table-buttons">
               <ButtonToolbar>
@@ -123,7 +111,20 @@ class DoctCell extends Component {
               </ButtonToolbar>
             </div>
           </div>
-          <div className="vol-table-desc"></div>
+          <div className="vol-table-desc">
+            <div className="vol-table-desc-stats">
+              <div className="vol-table-desc-stats-location">
+                  {this.props.location}
+              </div>
+              <b>Visits: </b>{this.props.visitorCount}
+              <div className="vol-table-desc-stats-rating">
+                <b>Rating: </b>{this.props.rating}
+              </div>
+            </div>
+            <div className="vol-table-desc-bio">
+              {this.props.bio}
+            </div>
+          </div>
         </div>
         {this.state.show ? (
           <Modal.Dialog show={this.state.show} onHide={this.handleClose}>

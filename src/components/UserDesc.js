@@ -6,6 +6,9 @@ class UserDesc extends Component {
     super(props);
   }
   render() {
+
+    // This component doesn't request any data, it just handles the data passed in from the parent component
+
     return (
       <div className="user-desc">
         <div className="user-location">

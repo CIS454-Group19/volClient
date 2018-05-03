@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import person from '../person.jpg';
-import {
-  Link,
-} from 'react-router-dom';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
 class UserBox extends Component {
   constructor(props) {
     super(props);
+
+    this.handleLogout = this.handleLogout.bind(this);
   }
+
+  // Handles redirect if user clicks on logout button
+
+  handleLogout() {
+    window.location = '/login'
+  }
+
+  // This component doesn't request any data, it just handles the data passed in from the parent component
 
 
   render() {
@@ -19,12 +27,9 @@ class UserBox extends Component {
         </div>
         <div className="user-names">
           <div className="full-name">
-            <Link to='/profile2'>
-              <div>
-                {this.props.firstName} {this.props.lastName}
-              </div>
-              {/* <b>Jesus Vargas</b> */}
-            </Link>
+            <div>
+              {this.props.firstName} {this.props.lastName}
+            </div>
           </div>
           <div className="userName">
             @{this.props.userName}
@@ -37,6 +42,9 @@ class UserBox extends Component {
           <div className="userVisits">
           {this.props.visits}<br/><b>Visits</b>
           </div>
+        </div>
+        <div className="user-logout">
+          <Button bsStyle="primary" bsSize="xs" onClick={this.handleLogout}>Logout</Button>
         </div>
       </div>
     );

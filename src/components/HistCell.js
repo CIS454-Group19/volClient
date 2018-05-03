@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import person2 from '../person2.png';
 import { Button, ButtonToolbar } from 'react-bootstrap';
-import { Modal, Form, FormControl, FormGroup, ControlLabel } from 'react-bootstrap';
+import { Modal, Form, FormControl, FormGroup, ControlLabel, Radio } from 'react-bootstrap';
 
 class HistCell extends Component {
   constructor(props) {
@@ -13,22 +13,74 @@ class HistCell extends Component {
       value: ''
     };
 
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleClose() {
-    this.setState({ show: false });
-  }
-
-  handleShow() {
-    this.setState({ show: true });
+    this.submitReview = this.submitReview.bind(this);
   }
 
   handleChange(e) {
     this.setState({ value: e.target.value });
   }
+
+  // Submits review to db and also updates visit count and rating sum to determine average
+
+  submitReview() {
+    var newSum = 0;
+    var newCount = 0;
+    var avg = 0;
+
+    if (this.state.value > 0) {
+      newSum = parseInt(this.state.value) + parseInt(this.props.ratingSum);
+      newCount = parseInt(this.props.visitCount) + 1;
+      avg = newSum / newCount;
+    }
+
+    let self = this;
+    let reviewData = {
+      rating: avg,
+      uid: this.props.uid,
+      visitCount: newCount,
+      updatedSum: newSum,
+      reviewDone: 1,
+      volId: this.props.doctorId,
+      appDate: this.props.date
+    }
+    if (this.props.myRole === 'patient') {
+      console.log('reviewData', reviewData);
+      return fetch(`http://localhost:8080/api/v1/submitReview.php`, {
+        method: 'POST',
+        body: JSON.stringify(reviewData),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(function(response) {
+        return response.json();
+      }).then(data => {
+        console.log('Status of Put', data);
+      })
+      .then(
+        this.props.updateTable(this.props.index)
+      );
+    } else {
+      console.log('reviewData', reviewData);
+      return fetch(`http://localhost:8080/api/v1/submitReviewDoc.php`, {
+        method: 'POST',
+        body: JSON.stringify(reviewData),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(function(response) {
+        return response.json();
+      }).then(data => {
+        console.log('Status of Put', data);
+      })
+      .then(
+        this.props.updateTable(this.props.index)
+      );
+    }
+  }
+
 
   render() {
     return (
@@ -38,44 +90,31 @@ class HistCell extends Component {
         </div>
         <div className="hist-table-topRow">
           <div className="hist-table-name">
-            Jimmy
+            {this.props.firstName} {this.props.lastName}
           </div>
           <div className="hist-table-buttons">
-            <ButtonToolbar>
-              <Button bsStyle="primary" bsSize="xs" onClick={this.handleShow}>Review</Button>
-              <Button bsStyle="primary" bsSize="xs">View</Button>
-            </ButtonToolbar>
+          <Form>
+            <FormGroup>
+              <Radio name="radioGroup" inline value='1' onChange={this.handleChange}>
+                1
+              </Radio>{' '}
+              <Radio name="radioGroup" inline value='2' onChange={this.handleChange}>
+                2
+              </Radio>{' '}
+              <Radio name="radioGroup" inline value='3' onChange={this.handleChange}>
+                3
+              </Radio>{' '}
+              <Radio name="radioGroup" inline value='4' onChange={this.handleChange}>
+                4
+              </Radio>{' '}
+              <Radio name="radioGroup" inline value='5' onChange={this.handleChange}>
+                5
+              </Radio>
+            </FormGroup>
+            <Button bsStyle="primary" bsSize="xs" onClick={this.submitReview}>Submit</Button>
+          </Form>
           </div>
         </div>
-        {this.state.show ? (
-        <Modal.Dialog show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header>
-            <Modal.Title>Submit Review</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form>
-              <FormGroup
-                controlId="formControlsTextarea"
-                // validationState={this.getValidationState()}
-              >
-                <ControlLabel>Working example with validation</ControlLabel>
-                <FormControl
-                  componentClass="textarea"
-                  // type="text"
-                  value={this.state.value}
-                  placeholder="Enter text"
-                  onChange={this.handleChange}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-            </form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
-            <Button bsStyle="primary">Submit</Button>
-          </Modal.Footer>
-        </Modal.Dialog>
-        ) : null}
       </div>
     );
   }

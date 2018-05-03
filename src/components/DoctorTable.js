@@ -5,7 +5,7 @@ import person2 from '../person2.png';
 import { Table } from 'react-bootstrap';
 import DoctCell from './DoctCell';
 
-class PatientRequests extends Component {
+class DoctorTable extends Component {
   constructor(props) {
     super(props);
 
@@ -20,6 +20,8 @@ class PatientRequests extends Component {
     this.getDocs();
   }
 
+  // Makes a GET reuest that returns all doctors in the database
+
   getDocs() {
     return fetch(`http://localhost:8080/api/v1/doctors.php`, {
       method: 'GET',
@@ -31,19 +33,16 @@ class PatientRequests extends Component {
       return response.json();
     }).then(data => {
       this.setState({doctors: data});
-      console.log('Doctors', this.state.doctors);
     });
   }
+
+  // Saves array of doctors to local storage
 
   componentWillUpdate(nextProps, nextState) {
     localStorage.setItem('Doctors', JSON.stringify(nextState.doctors))
   }
 
-  // updateTable(index, projectId) {
-  //   let newArr = this.state.campaigns
-  //   newArr[index].newProjectId = projectId
-  //   this.setState({campaigns : newArr})
-  // }
+  // Individual doctor data is passed into DoctCell component which displays the data in a table
 
   render() {
     return (
@@ -61,6 +60,10 @@ class PatientRequests extends Component {
                   <DoctCell 
                     firstName={doctor.user_first}
                     lastName={doctor.user_last}
+                    rating={doctor.rating}
+                    visitorCount={doctor.number_visits}
+                    location={doctor.user_location}
+                    bio={doctor.user_bio}
                     index={i}
                     doctors={this.state.doctors}
                   />
@@ -74,4 +77,4 @@ class PatientRequests extends Component {
   }
 }
 
-export default PatientRequests;
+export default DoctorTable;

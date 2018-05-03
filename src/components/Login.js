@@ -18,14 +18,14 @@ class Login extends React.Component {
       email: '',
       password: '',
       user: [],
-      redirectToReferrer: false,
     }
 
     this.emailChange = this.emailChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
     this.login = this.login.bind(this);
-    // this.auth = this.auth.bind(this);
   }
+
+  // Handle form changes
 
   emailChange (e) {
     this.setState({
@@ -40,6 +40,7 @@ class Login extends React.Component {
     })
   }
 
+  // Makes a POST request containing user login information and returns all of the users info
 
   login (e) {
     let self = this;
@@ -47,8 +48,6 @@ class Login extends React.Component {
       email: this.state.email,
       password: this.state.password,
     }
-    console.log(data);
-    console.log(localStorage);
     return fetch(`http://localhost:8080/api/v1/login.php`, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -62,31 +61,21 @@ class Login extends React.Component {
     .then(data => {
       this.setState({user: data});
       console.log('Users', this.state.user);
-      window.location = '/patient'
+      if (this.state.user[0].user_role === 'patient') {
+        window.location = '/patient'
+      } else {
+        window.location = '/doc'
+      }
     })
   }
 
-  // componentDidUpdate() {
-  //     window.location = '/patient'
-  // }
+  // After User info has been loaded, save to localStorage
 
   componentWillUpdate(nextProps, nextState) {
     localStorage.setItem('User', JSON.stringify(nextState.user))
   }
 
-  // auth = () => {
-  //   this.props.fakeAuth.authenticate(() => {
-  //     this.setState({redirectToReferrer: true});
-  //   })
-  //   console.log(this.state.redirectToReferrer);
-  // }
-
   render() {
-    // const { redirectToReferrer } = this.state
-
-    // if (redirectToReferrer === true) {
-    //   <Redirect to='/' />
-    // }
 
     return (
       <div className="container">
@@ -114,7 +103,6 @@ class Login extends React.Component {
               <div className="buttons-box">
                 <ButtonToolbar>
                 <Button bsStyle="primary" onClick={this.login}>Log In</Button>
-                {/* <Button bsStyle="primary" onClick={this.auth}>Auth</Button> */}
                 <SignUp />
                 </ButtonToolbar>
               </div> 

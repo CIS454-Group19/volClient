@@ -44,9 +44,9 @@
 }
 
 .user-box {
-  height: 200px;
+  height: 240px;
   width: 325px;
-  /* outline-style: solid; */
+  outline-style: solid;
   /* background-color: blue; */
   position: relative;
   top: 50px;
@@ -54,10 +54,10 @@
 
 .user-desc {
   height: 275px;
-  width: 325px;
+  width: 375px;
   /* outline-style: solid; */
   position: relative;
-  top: 100px;
+  top: 80px;
 }
 
 .user-photo {
@@ -97,7 +97,18 @@
   width: 175px;
   position: absolute;
   outline-style: solid;
+  outline-width: .5px;
   top: 135px;
+  left: 130px;
+  /* background-color: blue; */
+  display: table;
+}
+
+.user-logout {
+  height: 40px;
+  width: 175px;
+  position: absolute;
+  top: 200px;
   left: 130px;
   /* background-color: blue; */
   display: table;
@@ -126,7 +137,7 @@
 
 .user-location {
   height: 30px;
-  width: 200px;
+  width: 225px;
   position: relative;
   top: 25px;
   left: 20px;
@@ -134,7 +145,7 @@
 
 .user-bio {
   height: 190px;
-  width: 285px;
+  width: 325px;
   position: relative;
   /* outline-style: solid; */
   top: 40px;
@@ -153,10 +164,10 @@
 
 .future-visits {
   height: 300px;
-  width: 325px;
+  width: 500px;
   outline-style: solid;
   position: relative;
-  top: 150px;
+  top: 110px;
 }
 
 /* .table-container {
@@ -186,7 +197,7 @@
   text-align: left;
   height: 350px;
   width: 500px;
-  outline-style: solid;
+  /* outline-style: solid; */
 }
 
 .vol-table-topRow {
@@ -217,12 +228,49 @@
 }
 
 .vol-table-desc {
-  height: 80px;
+  height: 90px;
   width: 350px;
   position: absolute;
-  outline-style: solid;
-  top: 60px;
+  /* outline-style: solid; */
+  top: 50px;
   /* left: 500px; */
+  text-align: center;
+}
+
+.vol-table-desc-stats {
+  height: 20px;
+  width: 425px;
+  position: absolute;
+  outline-style: solid;
+  display: table;
+  outline-width: .5px;
+}
+
+.vol-table-desc-stats-location {
+  height: 20px;
+  width: 33%;
+  position: relative;
+  /* outline-style: solid; */
+  float: left;
+  text-align: center;
+}
+
+.vol-table-desc-stats-rating {
+  height: 20px;
+  width: 33%;
+  position: relative;
+  /* outline-style: solid; */
+  float: right;
+  text-align: center;
+}
+
+.vol-table-desc-bio {
+  height: 60px;
+  width: 425px;
+  position: absolute;
+  display: table;
+  top: 32px;
+  font-size: 10px;
 }
 
 .vol-table-td {
@@ -233,17 +281,16 @@
 .vol-feed {
   top: 50px;
   height: 600px;
-  width: 500px;
-  outline-style: solid;
+  width: 550px;
+  /* outline-style: solid; */
   position: relative;
   overflow: scroll;
 }
 
 .vol-cell {
   position: relative;
-  height: 150px;
-  width: 480px;
-  /* outline-style: solid; */
+  height: 200px;
+  width: 530px;
 }
 
 .vol-section {
@@ -273,14 +320,15 @@
   position: relative;
   top: 75px;
   height: 250px;
-  width: 500px;
+  width: 550px;
   outline-style: solid;
+  overflow: scroll;
 }
 
 .hist-cell {
   position: relative;
-  height: 65px;
-  width: 480px;
+  height: 95px;
+  width: 530px;
   /* outline-style: solid; */
 }
 
@@ -320,6 +368,7 @@
   right: 0px;
   text-align: right;
   /* background-color: red; */
+  text-align: left;
 }
 
 
@@ -417,4 +466,7 @@
   text-align: center;
 }
 
+.sign-up-form {
+  text-align: left;
+}
 

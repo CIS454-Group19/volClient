@@ -7,7 +7,7 @@ class ProfileBody extends Component {
     return (
       <div className="profile-first-section">
         <div className="profile-photo">
-          <img src={person}/>
+          <img src={person} alt='User'/>
         </div>
         <div className="profile-name">
           <h3>Ryan Schneinder</h3>
