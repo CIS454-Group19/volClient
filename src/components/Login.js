@@ -38,12 +38,12 @@ class Login extends React.Component {
     this.setState({
       password: e.target.value
     })
+    console.log(this.state.password);
   }
 
   // Makes a POST request containing user login information and returns all of the users info
 
   login (e) {
-    let self = this;
     let data = {
       email: this.state.email,
       password: this.state.password,
@@ -61,10 +61,12 @@ class Login extends React.Component {
     .then(data => {
       this.setState({user: data});
       console.log('Users', this.state.user);
-      if (this.state.user[0].user_role === 'patient') {
+      if (this.state.user.length > 0 && this.state.user[0].user_role === 'patient') {
         window.location = '/patient'
-      } else {
+      } else if (this.state.user.length > 0 && this.state.user[0].user_role === 'doctor'){
         window.location = '/doc'
+      } else {
+        null
       }
     })
   }

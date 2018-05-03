@@ -26,7 +26,6 @@ class Patient extends Component {
   // Check to see if a user was loaded, if not, reroute back to login page
 
   componentDidMount() {
-    console.log('Loaded User', this.state.user)
     {this.state.user.length === 0 ?
       window.location = '/login'
     : null   

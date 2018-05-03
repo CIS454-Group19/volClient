@@ -46,7 +46,7 @@ class HistCell extends Component {
     }
     if (this.props.myRole === 'patient') {
       console.log('reviewData', reviewData);
-      return fetch(`http://localhost:8080/api/v1/submitReview.php`, {
+      return fetch(`http://localhost:8080/api/v1/submitReview/submitReview.php`, {
         method: 'POST',
         body: JSON.stringify(reviewData),
         headers: {
@@ -63,7 +63,7 @@ class HistCell extends Component {
       );
     } else {
       console.log('reviewData', reviewData);
-      return fetch(`http://localhost:8080/api/v1/submitReviewDoc.php`, {
+      return fetch(`http://localhost:8080/api/v1/submitReview/submitReviewDoc.php`, {
         method: 'POST',
         body: JSON.stringify(reviewData),
         headers: {
